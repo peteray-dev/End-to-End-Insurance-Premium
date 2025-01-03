@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: inproject
+Version: 0.0.0
+Summary: End to End project with machine learning
+Home-page: https://github.com/peteray-dev/Insurance-Premium-End-to-End
+Author: peteray-dev
+Author-email: peteraydev@gmail.com
+Project-URL: Bug Tracker, https://github.com/peteray-dev/Insurance-Premium-End-to-End/issues
+License-File: LICENSE
+
+# Insurance-Premium-End-to-End-
+
+<!-- conda create -n mlproj python=3.8 -->
+
+<!-- conda activate mlproj -->
+
+<!-- pip install -r requirements.txt -->

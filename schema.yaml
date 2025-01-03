@@ -1,0 +1,26 @@
+# key: value
+COLUMNS:
+    id: int64
+    Age: float64
+    Gender:  object 
+    Annual Income : float64
+    Marital Status : object 
+    Number of Dependents :  float64
+    Education Level : object 
+    Occupation  : object 
+    Health Score: float64
+    Location :  object 
+    Policy Type  : object 
+    Previous Claims  : float64
+    Vehicle Age    : float64
+    Credit Score  : float64
+    Insurance Duration  : float64
+    Policy Start Date :  object 
+    Customer Feedback   : object 
+    Smoking Status  : object 
+    Exercise Frequency  : object 
+    Property Type : object
+    Premium Amount : float64
+
+TARGET_COLUMN:
+    name: Premium Amount
