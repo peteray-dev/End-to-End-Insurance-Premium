@@ -2,10 +2,10 @@ import os
 from pathlib import Path
 import zipfile
 import urllib.request as request
-from inproject.logging import logger_re
-from inproject.utils.common import read_yaml, get_size
+from src.inproject.logging import logger_re
+from src.inproject.utils.common import read_yaml, get_size
 from kaggle.api.kaggle_api_extended import KaggleApi
-from inproject.entity.config_entity import DataIngestionCOnfig
+from src.inproject.entity.config_entity import DataIngestionCOnfig
 # import kaggle
 
 
