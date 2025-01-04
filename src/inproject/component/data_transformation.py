@@ -5,7 +5,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from src.inproject.entity.config_entity import DataTransformationConfig
 import os
-
+import joblib
 
 
 class DataTransformation:
@@ -18,7 +18,7 @@ class DataTransformation:
         train, test = train_test_split(data, test_size=0.20, random_state=42)
 
         cat_col = data.select_dtypes(include=['object']).columns.tolist()
-        num_col = [col for col in train.select_dtypes(exclude=['object']).columns if col != 'target']  # Exclude target
+        num_col = [col for col in train.select_dtypes(exclude=['object']).columns if col != 'Premium Amount']  # Exclude target
         num_col = num_col[1:]
         print(f"Numerical Columns: {num_col}")
         print(f"Categorical Columns: {cat_col}")
@@ -46,6 +46,9 @@ class DataTransformation:
         train[cat_col] = cat_imputer.fit_transform(train[cat_col])
         test[cat_col] = cat_imputer.transform(test[cat_col])
 
+        joblib.dump(num_imputer, os.path.join(self.config.root_dir, 'num_imputer.joblib'))
+        joblib.dump(cat_imputer, os.path.join(self.config.root_dir, 'cat_imputer.joblib'))
+
         print(f"Train shape after missing value imputation: {train.shape}")
         print(f"Test shape after missing value imputation: {test.shape}")
 
@@ -59,12 +62,16 @@ class DataTransformation:
             train[col] = label_encoder.fit_transform(train[col])
             test[col] = label_encoder.transform(test[col])
 
+            joblib.dump(label_encoder, os.path.join(self.config.root_dir, 'label_encoder.joblib'))
+
         return train, test
     
     def scaling(self, train, test, num_col):
         scaler = StandardScaler()
         train[num_col] = scaler.fit_transform(train[num_col])
         test[num_col] = scaler.transform(test[num_col])
+        
+        joblib.dump(scaler, os.path.join(self.config.root_dir, 'scaler.joblib'))
 
         # Save the scaled train and test sets
         train.to_csv(os.path.join(self.config.root_dir, 'train.csv'), index=False)
