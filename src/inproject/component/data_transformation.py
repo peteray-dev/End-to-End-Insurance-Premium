@@ -14,12 +14,12 @@ class DataTransformation:
 
     def remove_outlier(self):
         data = pd.read_csv(self.config.data_path)
-        data = data.drop(columns='Policy Start Date')
+        data = data.drop(columns=['id','Policy Start Date'])
         train, test = train_test_split(data, test_size=0.20, random_state=42)
 
         cat_col = data.select_dtypes(include=['object']).columns.tolist()
         num_col = [col for col in train.select_dtypes(exclude=['object']).columns if col != 'Premium Amount']  # Exclude target
-        num_col = num_col[1:]
+        # num_col = num_col[1:]
         print(f"Numerical Columns: {num_col}")
         print(f"Categorical Columns: {cat_col}")
 
@@ -32,6 +32,7 @@ class DataTransformation:
             train = train[(train[col] >= lower_bound) & (train[col] <= upper_bound)]
 
         print(f"Train shape after outlier removal: {train.shape}")
+        print(f"Train shape after outlier removal: {train.columns}")
         print(f"Test shape after outlier removal: {test.shape}")
 
         return train, test, cat_col, num_col
@@ -55,14 +56,21 @@ class DataTransformation:
         return train, test
 
     def label_encoding_categorical(self, train, test, cat_col):
-        label_encoder = LabelEncoder()
+        encoders = {}  # Dictionary to store LabelEncoders for each column
 
-        # Iterate over each categorical column and apply LabelEncoder
+    # Iterate over each categorical column and apply LabelEncoder
         for col in cat_col:
-            train[col] = label_encoder.fit_transform(train[col])
-            test[col] = label_encoder.transform(test[col])
+            encoder = LabelEncoder()
+            
+            # Fit the encoder on the training data and transform both train and test
+            train[col] = encoder.fit_transform(train[col])
+            test[col] = encoder.transform(test[col])
 
-            joblib.dump(label_encoder, os.path.join(self.config.root_dir, 'label_encoder.joblib'))
+            # Store the encoder in the dictionary
+            encoders[col] = encoder
+
+        # Save all encoders in a single joblib file
+        joblib.dump(encoders, os.path.join(self.config.root_dir, 'label_encoders.joblib'))
 
         return train, test
     
