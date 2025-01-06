@@ -52,7 +52,7 @@ Update the app.py
 
 
 # Create ECR repo to store docker image
-uri: 084828601471.dkr.ecr.eu-north-1.amazonaws.com/insuranceproject
+uri: 084828601471.dkr.ecr.eu-north-1.amazonaws.com/insureproject
 
 # Create an EC2 virtual machine (Ubuntu)
 mainly used for deployment, other can be selected based on request
