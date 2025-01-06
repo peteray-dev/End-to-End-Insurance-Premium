@@ -74,7 +74,7 @@ def predict():
             # print(obj.predict())
             prediction = ceil(obj.predict(data=data_df))
        
-            # print("Prediction Result:", prediction)
+            print("Prediction Result:", prediction)
             return render_template('result.html', prediction=str(prediction))
 
         except Exception as e:
