@@ -68,7 +68,7 @@ def predict():
 
             # Convert data dictionary to DataFrame
             data_df = pd.DataFrame([data_dict])
-            print(f'inputed data: {data_df}')
+            # print(f'inputed data: {data_df}')
             # Prediction logic
             obj = PredictionPipeline()
             # print(obj.predict())
